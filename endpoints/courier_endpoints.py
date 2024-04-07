@@ -5,22 +5,27 @@ from data import BaseData
 
 class CreateNewCourier:
     @allure.step('Создание нового курьера')
-    def create_new_courier(self, login="", password="", first_name=""):
-        payload = {
-            "login": login,
-            "password": password,
-            "firstName": first_name
-        }
+    def create_new_courier(self, **kwargs):
+        payload = {}
+        params = ["login", "password", "first_name"]
+
+        for param in params:
+            if param in kwargs:
+                payload[param] = kwargs[param]
+
         return requests.post(BaseData.BASE_URL + '/api/v1/courier', data=payload, timeout=10)
 
 
 class LoginCourier:
     @allure.step('Авторизация курьера')
-    def login_courier(self, login="", password=""):
-        payload = {
-            "login": login,
-            "password": password
-        }
+    def login_courier(self, **kwargs):
+        payload = {}
+        params = ["login", "password"]
+
+        for param in params:
+            if param in kwargs:
+                payload[param] = kwargs[param]
+
         return requests.post(BaseData.BASE_URL + '/api/v1/courier/login', data=payload, timeout=10)
 
 

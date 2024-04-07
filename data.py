@@ -26,6 +26,17 @@ class DataOrder:
     METRO_STATION = random.randint(1, 224)
 
 
+class DataResponseText:
+    OK_TRUE = {'ok': True}
+    LOGIN_EXIST = {"code": 409, "message": "Этот логин уже используется. Попробуйте другой."}
+    NOT_ENOUGH_DATA_FOR_CREATE = {"code": 400, "message": "Недостаточно данных для создания учетной записи"}
+    ACCOUNT_NOT_FOUND = {"code": 404, "message": "Учетная запись не найдена"}
+    INSUFFICIENT_LOGIN_DATA = {"code": 400, "message": "Недостаточно данных для входа"}
+    NONEXISTENT_COURIER = {"code": 404, "message": "Курьера с таким id нет."}
+    NOT_ENOUGH_DATA_FOR_DELETE = {"message": "Недостаточно данных для удаления курьера"}
+    NOT_FOUND_ORDER = {"code": 404, "message": "Заказ не найден"}
+    NO_DATA_FOR_SEARCH = {"code": 400, "message": "Недостаточно данных для поиска"}
+
 # courier = DataCourier
 # print(courier.FIRST_NAME, courier.PASSWORD, courier.LOGIN, sep='\n')
 # print()
