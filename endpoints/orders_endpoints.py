@@ -3,6 +3,10 @@ import requests
 from data import BaseData
 
 
+orders = '/api/v1/orders'
+orders_accept = '/api/v1/orders/'
+orders_track = '/api/v1/orders/track'
+
 class CreateNewOrder:
     @allure.step('Создание нового заказа')
     def create_new_order(self, **kwargs):
@@ -14,7 +18,7 @@ class CreateNewOrder:
             if param in kwargs:
                 payload[param] = kwargs[param]
 
-        return requests.post(BaseData.BASE_URL + '/api/v1/orders', data=payload, timeout=10)
+        return requests.post(BaseData.BASE_URL + orders, data=payload, timeout=10)
 
 
 class GetListOrders:
@@ -27,22 +31,20 @@ class GetListOrders:
             if param in kwargs:
                 payload[param] = kwargs[param]
 
-        return requests.get(BaseData.BASE_URL + '/api/v1/orders', params=payload, timeout=30)
+        return requests.get(BaseData.BASE_URL + orders, params=payload, timeout=30)
 
 
 class AcceptOrder:
     @allure.step('Принятие заказа')
     def accept_order(self, order_id, **kwargs):
-        payload = {"courierId": kwargs}
+        payload = {}
+        params = ["courierId"]
 
-        # payload = {}
-        # params = ["courierId"]
-        #
-        # for param in params:
-        #     if param in kwargs:
-        #         payload[param] = kwargs[param]
+        for param in params:
+            if param in kwargs:
+                payload[param] = kwargs[param]
 
-        return requests.put(BaseData.BASE_URL + '/api/v1/orders/' + {order_id}, params=payload, timeout=30)
+        return requests.put(BaseData.BASE_URL + orders_accept + {order_id}, params=payload, timeout=30)
 
 
 class GetOrderByNumber:
@@ -55,4 +57,4 @@ class GetOrderByNumber:
             if param in kwargs:
                 payload[param] = kwargs[param]
 
-        return requests.get(BaseData.BASE_URL + '/api/v1/orders/track', params=payload, timeout=10)
+        return requests.get(BaseData.BASE_URL + orders_track, params=payload, timeout=10)

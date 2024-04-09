@@ -36,16 +36,3 @@ class DataResponseText:
     NOT_ENOUGH_DATA_FOR_DELETE = {"message": "Недостаточно данных для удаления курьера"}
     NOT_FOUND_ORDER = {"code": 404, "message": "Заказ не найден"}
     NO_DATA_FOR_SEARCH = {"code": 400, "message": "Недостаточно данных для поиска"}
-
-# courier = DataCourier
-# print(courier.FIRST_NAME, courier.PASSWORD, courier.LOGIN, sep='\n')
-# print()
-# order = DataOrder
-# print(type(order.FIRST_NAME), order.FIRST_NAME,
-#       type(order.LAST_NAME), order.LAST_NAME,
-#       type(order.ADDRESS), order.ADDRESS,
-#       type(order.PHONE), order.PHONE,
-#       type(order.DELIVERY_DATE), order.DELIVERY_DATE,
-#       type(order.SCOOTER_COLOUR), order.SCOOTER_COLOUR,
-#       type(order.RENT_TIME), order.RENT_TIME,
-#       type(order.METRO_STATION), order.METRO_STATION, sep='\n')

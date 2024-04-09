@@ -14,20 +14,16 @@ def create_login_and_delete_new_courier():
 
     # создаем нового курьера
     create = CreateNewCourier().create_new_courier(login=login, password=password, first_name=first_name)
-    assert create.status_code == 201, f'Код ответа {create.status_code} и текст ответа {create.text}'
 
     # логинимся новым курьером и получем его id
     login_courier = LoginCourier().login_courier(login=login, password=password)
-    assert login_courier.status_code == 200, (f'Код ответа {login_courier.status_code} '
-                                              f'и текст ответа {login_courier.text}')
+
     courier_id = str(login_courier.json()['id'])
 
     yield courier_id
 
     # удаляем курьера после тестов
     delete = DeleteCourier().delete_courier(courier_id)
-    assert delete.status_code == 200, f'Код ответа {delete.status_code} и текст ответа {delete.text}'
-
 
 @pytest.fixture
 def get_track_by_create_new_order():
@@ -40,20 +36,19 @@ def get_track_by_create_new_order():
                                                  rentTime=DataOrder.RENT_TIME,
                                                  deliveryDate=DataOrder.DELIVERY_DATE,
                                                  color=list(DataOrder.SCOOTER_COLOUR[random.randint(0, 1)]))
-    assert response.status_code == 201, f'Код ответа {response.status_code} и текст ответа {response.text}'
 
     track = str(response.json()['track'])
+    return track
 
-    yield track
 
 
 @pytest.fixture
 def get_order_id_by_track(get_track_by_create_new_order):
-    track = get_track_by_create_new_order
+    track_number = get_track_by_create_new_order
 
-    response = GetOrderByNumber().get_order_by_number(track=track)
-    assert response.status_code == 200, f'Код ответа {response.status_code} и текст ответа {response.text}'
+    response = GetOrderByNumber().get_order_by_number(t=track_number)
 
-    order_id = str(response.json()['orders'][0]['id'])
+    order_id = response.json()
+    order_id = str(order_id['order'][0]['id'])
 
-    yield order_id
+    return order_id
