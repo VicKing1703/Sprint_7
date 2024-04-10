@@ -49,6 +49,7 @@ def get_order_id_by_track(get_track_by_create_new_order):
     response = GetOrderByNumber().get_order_by_number(t=track_number)
 
     order_id = response.json()
-    order_id = str(order_id['order'][0]['id'])
+    order_id = order_id['order'][0]['id']
+    order_id = str(order_id)
 
     return order_id

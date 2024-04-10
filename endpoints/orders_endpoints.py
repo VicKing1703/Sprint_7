@@ -3,9 +3,8 @@ import requests
 from data import BaseData
 
 
-orders = '/api/v1/orders'
-orders_accept = '/api/v1/orders/'
-orders_track = '/api/v1/orders/track'
+orders_base_url = f'{BaseData.BASE_URL}/api/v1/orders'
+
 
 class CreateNewOrder:
     @allure.step('Создание нового заказа')
@@ -18,7 +17,7 @@ class CreateNewOrder:
             if param in kwargs:
                 payload[param] = kwargs[param]
 
-        return requests.post(BaseData.BASE_URL + orders, data=payload, timeout=10)
+        return requests.post(orders_base_url, data=payload, timeout=10)
 
 
 class GetListOrders:
@@ -31,7 +30,7 @@ class GetListOrders:
             if param in kwargs:
                 payload[param] = kwargs[param]
 
-        return requests.get(BaseData.BASE_URL + orders, params=payload, timeout=30)
+        return requests.get(orders_base_url, params=payload, timeout=30)
 
 
 class AcceptOrder:
@@ -44,7 +43,7 @@ class AcceptOrder:
             if param in kwargs:
                 payload[param] = kwargs[param]
 
-        return requests.put(BaseData.BASE_URL + orders_accept + {order_id}, params=payload, timeout=30)
+        return requests.put(orders_base_url + "/" + order_id, params=payload, timeout=30)
 
 
 class GetOrderByNumber:
@@ -57,4 +56,4 @@ class GetOrderByNumber:
             if param in kwargs:
                 payload[param] = kwargs[param]
 
-        return requests.get(BaseData.BASE_URL + orders_track, params=payload, timeout=10)
+        return requests.get(orders_base_url + "/track", params=payload, timeout=10)
