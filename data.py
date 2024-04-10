@@ -1,5 +1,7 @@
 import random
-from mimesis import Person, Locale, Address, Datetime
+from mimesis import Person, Locale, Address
+from datetime import datetime
+
 
 
 class BaseData:
@@ -20,7 +22,7 @@ class DataOrder:
     LAST_NAME = Person(locale=Locale.RU).surname()
     ADDRESS = Address(locale=Locale.RU).address()
     PHONE = Person(locale=Locale.RU).telephone(mask='+79##########')
-    DELIVERY_DATE = Datetime().date(2024, 2025)
+    DELIVERY_DATE = datetime.now().date()
     SCOOTER_COLOUR = ['GREY', 'BLACK']
     RENT_TIME = random.randint(1, 7)
     METRO_STATION = random.randint(1, 224)

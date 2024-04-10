@@ -13,7 +13,7 @@ def create_login_and_delete_new_courier():
     first_name = DataCourier.FIRST_NAME
 
     # создаем нового курьера
-    create = CreateNewCourier().create_new_courier(login=login, password=password, first_name=first_name)
+    CreateNewCourier().create_new_courier(login=login, password=password, first_name=first_name)
 
     # логинимся новым курьером и получем его id
     login_courier = LoginCourier().login_courier(login=login, password=password)
@@ -23,7 +23,8 @@ def create_login_and_delete_new_courier():
     yield courier_id
 
     # удаляем курьера после тестов
-    delete = DeleteCourier().delete_courier(courier_id)
+    DeleteCourier().delete_courier(courier_id)
+
 
 @pytest.fixture
 def get_track_by_create_new_order():
@@ -34,12 +35,10 @@ def get_track_by_create_new_order():
                                                  metroStation=DataOrder.METRO_STATION,
                                                  phone=DataOrder.PHONE,
                                                  rentTime=DataOrder.RENT_TIME,
-                                                 deliveryDate=DataOrder.DELIVERY_DATE,
-                                                 color=list(DataOrder.SCOOTER_COLOUR[random.randint(0, 1)]))
+                                                 deliveryDate=DataOrder.DELIVERY_DATE)
 
     track = str(response.json()['track'])
     return track
-
 
 
 @pytest.fixture
@@ -48,8 +47,8 @@ def get_order_id_by_track(get_track_by_create_new_order):
 
     response = GetOrderByNumber().get_order_by_number(t=track_number)
 
-    order_id = response.json()
-    order_id = order_id['order'][0]['id']
-    order_id = str(order_id)
+    print(response.json())  # Добавьте эту строку для вывода данных JSON
+    order_id = str(response.json()['order']['id'])
+    print(order_id)
 
     return order_id

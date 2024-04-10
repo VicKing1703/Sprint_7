@@ -1,6 +1,9 @@
 import allure
 import requests
 from data import BaseData
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 orders_base_url = f'{BaseData.BASE_URL}/api/v1/orders'
